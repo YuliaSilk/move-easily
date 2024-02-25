@@ -49,26 +49,14 @@ const GoBackIcon = styled(HiArrowLongLeft)`
   }
 `;
 export default function CatalogPage() {
-  const adverts = useSelector(selectAdverts);
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredAdverts, setFilteredAdverts] = useState([]);
-  const [selectedMake, setSelectedMake] = useState('');
+  const adverts = useSelector(selectAdverts);
 
   const loadMoreAdverts = () => {
-    dispatch(
-      fetchAdverts({ page: currentPage + 1, limit: 12, make: selectedMake })
-    );
+    dispatch(fetchAdverts({ page: currentPage + 1, limit: 12 }));
     setCurrentPage(prevPage => prevPage + 1);
   };
-
-  useEffect(() => {
-    const filtered = selectedMake
-      ? adverts.filter(advert => advert.make === selectedMake)
-      : adverts;
-
-    setFilteredAdverts(filtered);
-  }, [selectedMake, adverts]);
 
   const toGoBack = () => {
     if (currentPage > 1) {
@@ -76,9 +64,10 @@ export default function CatalogPage() {
     }
   };
 
-  const handleFilter = make => {
-    setSelectedMake(make);
-  };
+  useEffect(() => {
+    dispatch(fetchAdverts({ page: currentPage, limit: 12 }));
+  }, [dispatch, currentPage]);
+
   return (
     <div>
       {currentPage > 1 && (
@@ -87,9 +76,9 @@ export default function CatalogPage() {
         </GoBackBtn>
       )}
 
-      <CarFilterForm onFilter={handleFilter} />
+      <CarFilterForm />
       <ListContainer>
-        {filteredAdverts.map(advert => (
+        {adverts.map(advert => (
           <li key={advert.id}>
             <CarsCard advert={advert} />
           </li>

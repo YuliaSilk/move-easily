@@ -23,20 +23,19 @@ export const CarsCard = ({ advert: initialAdvert }) => {
 
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    setIsFavorite(favorites.some(fav => fav.id === advert.id));
+    setIsFavorite(favorites.some((fav) => fav.id === advert.id));
   }, [advert.id]);
-
-  const onFavoriteToggle = () => {
+    const onFavoriteToggle = () => {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 
-    const isAlreadyFavorite = favorites.some(fav => fav.id === advert.id);
+    const isAlreadyFavorite = favorites.some((fav) => fav.id === advert.id);
 
     setIsFavorite(!isAlreadyFavorite);
 
     if (!isAlreadyFavorite) {
       localStorage.setItem('favorites', JSON.stringify([...favorites, advert]));
     } else {
-      const updatedFavorites = favorites.filter(fav => fav.id !== advert.id);
+      const updatedFavorites = favorites.filter((fav) => fav.id !== advert.id);
       localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
     }
   };

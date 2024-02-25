@@ -3,18 +3,10 @@ import { Header, Link } from './Header/Header.styled';
 import HomePage from 'pages/HomePage';
 import CatalogPage from 'pages/CatalogPage';
 import FavoritePage from 'pages/FavoritesPage';
-import { useState, useEffect} from 'react';
-import { Loader } from './Loader/Loader';
+
 
 export const App = () => {
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 5000)
 
-  }, [])
   return (
     <>
           <Header>
@@ -31,7 +23,7 @@ export const App = () => {
         <Route path="/favorites" element={<FavoritePage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
-      {loading && <Loader/>}
+      
     </>
   );
 };

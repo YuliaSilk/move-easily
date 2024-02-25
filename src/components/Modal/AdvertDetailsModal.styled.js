@@ -29,7 +29,7 @@ export const ModalWrapper = styled.div`
     left: 50%;
     right: auto;
     bottom: auto;
-    margin-top: -100px;
+    margin-top: 3%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     z-index: 10000;
